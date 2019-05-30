@@ -1,0 +1,36 @@
+<%
+import sqlite3
+from bottle import request
+
+lat = request.forms.get("latitude")
+lon = request.forms.get("longitude")
+
+c.execute("INSERT INTO latitudeLongitude VALUES (null, ?, ?)",(lat, lon,))
+
+db.commit()
+%>
+
+
+
+<!doctype html>
+
+
+<body>
+<form method="post" action="/getLatitudeLongitude/createMap" name="latitudeLongitude">
+    <input type="text" name="latitude" value = {{lat}} readonly >
+    <input type="text" name="longitude" value = {{lon}} readonly>
+	<input type="submit" value="Create map of your current location?">
+
+</form>
+
+<form method = "post" action = "/getLatitudeLongitude/savePosition">
+	<input type = "submit" value = "Log location?">
+</form>
+
+<button type = "button"
+        onclick = "document.location.href = '/'">
+        return to main
+    </button>
+</body>
+
+</html>

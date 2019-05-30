@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+
+
+<body>
+	<!-- script source for google maps api, uses my api key -->
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB7MczuuYpj1Ldw9Kg55GJbgZjGuXlm0Ao&callback=initMap" async defer></script>
+    
+    <style>
+      /* Always set the map height explicitly to define the size of the div
+       * element that contains the map. */
+      #map {
+      	height: 100px;
+        width: 100px;
+      }
+      /* Optional: Makes the sample page fill the window. */
+      html, body {
+        height: 25%
+        width: 25%
+        margin: 0;
+        padding: 0;
+      }
+    </style>
+    
+    <script>
+      var map;
+      var lat;
+      var lon;
+      
+      //list of latitude and longitude used by map marker
+            
+       //utilize built in js functionality to get users latitude and longitude
+      function getLocation() {
+      	
+      	 //check if browser supports geolocation
+ 		 if (navigator.geolocation) {
+  
+			navigator.geolocation.getCurrentPosition(getPosition);
+	
+  		 } 
+  		 else {
+  		 }
+  	  }
+  		//callback function, populates lat and lon variables using javascript api for geolocation
+		function getPosition(position) {
+		
+			lat = position.coords.latitude;
+			lat = parseFloat(lat);
+			
+	  		lon = position.coords.longitude;
+	  		lon = parseFloat(lon);
+	  		
+	  		document.getElementById('lon').value = lon;
+	  		document.getElementById('lat').value = lat;
+
+		}
+    
+      function initMap() {
+
+      	
+      	//create map using google map json object
+       	map = new google.maps.Map(document.getElementById('map'), {
+          
+          center: {lat: lat, lng: lon},
+          
+          zoom: 18
+        });
+        
+        //create and place map marker using json object
+        var mapMarker = new google.maps.Marker({
+        
+       		position: {lat: lat, lng: lon},
+       		
+       		map: map,
+       		
+        	title: 'Hello, you are here!'
+        });
+      }
+      
+      function Submit() {
+      	document.forms.['latitudeLongitude'].submit();
+      }
+    </script>
+
+<form method="post" action="/" name="latitudeLongitude">
+    <input type="text" name="latLon[lat]">
+    <input type="text" name="latLon[lon]">
+    <input type="submit" value="Submit">
+</form>
+
+<input type = "button" value = "get your current location" onclick = "getLocation();">
+<input type = "button" value = "create map using your lat and lon" onclick = "initMap();">
+<input type = "button" value = "log your current location?" onclick = "Submit();">
+
+<div id = "map"></div>
+<div id = "location"><div>
+
+
+</body>
+
+</html>

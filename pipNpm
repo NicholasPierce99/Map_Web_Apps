@@ -1,0 +1,11 @@
+npm install node.js
+npm install express
+npm install sqlite3
+npm install bodyparser
+
+include google maps api script
+
+pip install bottle
+pip install beautifulsoup
+pip install gmplot
+pip install geocoder
